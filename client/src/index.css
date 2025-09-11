@@ -117,4 +117,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  .container {
+    /* Set a default padding for all screen sizes */
+    @apply px-3;
+
+    /* Override the padding for the md breakpoint and up */
+    @apply md:px-40; /* px-40 is 10rem in Tailwind's default spacing scale */
+  }
 }

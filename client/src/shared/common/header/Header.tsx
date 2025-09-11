@@ -9,10 +9,10 @@ const Header = () => {
   const { isLoggedIn } = useAuth();
   const logoutMutation = useLogout();
   return (
-    <header className="py-4 shadow-xs bg-blue-600 w-full px-4">
+    <header className="py-4 shadow-xs bg-blue-600 w-full container mx-auto">
       <nav className="flex items-center justify-between">
         <Link to="/">
-          <h1 className="font-bold text-2xl text-white">Holi.com</h1>
+          <h1 className="font-bold text-3xl text-white">Holi.com</h1>
         </Link>
 
         {isLoggedIn ? (

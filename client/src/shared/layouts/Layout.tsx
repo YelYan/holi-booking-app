@@ -5,10 +5,10 @@ const Layout = () => {
     <main className="min-h-screen flex flex-col">
       <Header />
       <Hero />
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <SearchBar />
       </div>
-      <div className="container mx-auto py-10 flex-1 px-4">
+      <div className="container mx-auto py-10 flex-1">
         <Outlet />
       </div>
       <Footer />

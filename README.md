@@ -1,4 +1,4 @@
-# Hotel Bookin App
+# Hotel Booking App
 
 # Author
 
