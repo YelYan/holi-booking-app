@@ -16,10 +16,4 @@ const config = {
     SMTP_KEY : process.env.SMTP_KEY ?? "",
 }
 
-// allow the frontend to make requests to your API
-// export const corsOptions :CorsOptionsT = {
-//     origin : process.env.FRONTEND_URL ?? "http://localhost:5173",
-//     credentials : true, // to allow your API to set cookies on the browser
-// }
-
 export default  config ;
