@@ -17,9 +17,14 @@ export const LazySearch = lazy(() => import("@/features/search/pages/Search"));
 /* Private pages */
 export const LazyNotFound = lazy(() => import("@/features/NotFound/NotFound"));
 export const LazyHome = lazy(() => import("@/features/home/pages/Home"));
-export const LazyAbout = lazy(() => import("@/features/about/pages/About"));
-export const LazyContact = lazy(
-  () => import("@/features/contact/pages/Contact")
+export const LazyMyHotels = lazy(
+  () => import("@/features/myhotels/pages/MyHotels")
+);
+export const LazyMyBookings = lazy(
+  () => import("@/features/mybookings/pages/MyBookings")
+);
+export const LazyAddHotels = lazy(
+  () => import("@/features/addHotel/pages/AddHotel")
 );
 
 /* Dashboard pages */

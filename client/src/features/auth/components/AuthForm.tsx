@@ -179,13 +179,13 @@ const AuthForm = ({
 
           {type === "login" && (
             <div className="text-sm text-right">
-              <Link to="/forgot-password" className="text-blue-500 underline">
+              <Link to="/forgot-password" className="text-blue-700 underline">
                 Forgot password?
               </Link>
             </div>
           )}
           <Button
-            className="bg-blue-300 cursor-pointer relative w-full"
+            className="bg-blue-700 cursor-pointer relative w-full"
             type="submit"
             disabled={isSubmitDisabled}
           >

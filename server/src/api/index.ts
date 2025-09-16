@@ -1,5 +1,6 @@
+import authenticateUser from "#middleware/authenticate-user.js";
 import authRoutes from '#routes/auth.route.js';
-import productRoutes from "#routes/product.route.js";
+import myHotelRoutes from "#routes/my-hotel.route.js";
 import userRoutes from '#routes/user.route.js';
 import express from 'express';
 
@@ -11,5 +12,5 @@ router.get("/test" , (req, res) => {
 
 router.use("/auth", authRoutes);
 router.use("/user", userRoutes);
-router.use("/product", productRoutes);
+// router.use("/my-hotels", authenticateUser,  myHotelRoutes);
 export default router;

@@ -14,6 +14,10 @@ const config = {
     SMTP_PORT : process.env.SMTP_PORT ?? 587,
     SMTP_USER : process.env.SMTP_USER ?? "",
     SMTP_KEY : process.env.SMTP_KEY ?? "",
+
+    CLOUDINARY_CLOUD_NAME : process.env.CLOUDINARY_CLOUD_NAME ?? "",
+    CLOUDINARY_API_KEY : process.env.CLOUDINARY_API_KEY ?? "",
+    CLOUDINARY_API_SECRET : process.env.CLOUDINARY_API_SECRET ?? "",
 }
 
 export default  config ;

@@ -11,7 +11,7 @@ const NotFound = () => {
         </h3>
         <Button
           variant={"default"}
-          className="cursor-pointer"
+          className="cursor-pointer bg-blue-700"
           onClick={() => navigate(-1)}
         >
           Go Back

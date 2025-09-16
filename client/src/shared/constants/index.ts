@@ -70,3 +70,61 @@ export const resetPasswordFormControls = [
     validation: { required: true, minLength: 6 },
   },
 ];
+
+
+export const detailsSectionFormControls = [
+    {
+        name : "name",
+        label : "Name",
+        placeholder : "Enter your Name",
+        componentType : "input",
+        type : "text",
+        validation : {required : true}
+    },
+    {
+        name : "city",
+        label : "City",
+        placeholder : "Enter your City",
+        componentType : "input",
+        type : "text",
+        validation : {required : true}
+    },
+    {
+        name : "country",
+        label : "Country",
+        placeholder : "Enter your Country",
+        componentType : "input",
+        type : "text",
+        validation : {required : true}
+    },
+    {
+        name : "description",
+        label : "Description",
+        placeholder : "Enter your Description",
+        componentType : "textarea",
+        type : "text",
+        validation : {required : true}
+    },
+    {
+        name : "pricePernight",
+        label : "Price Per Night",
+        placeholder : "Enter your price",
+        componentType : "input",
+        type : "number",
+        validation : {required : true}
+    },
+    {
+      name: "star rating",
+      label: "Star Rating",
+      placeholder: "Select Star Rating",
+      componentType: "select",
+      validation : {required : true},
+      options: [
+        { value: 1, label: "1" },
+        { value: 2, label: "2" },
+        { value: 3, label: "3" },
+        { value: 4, label: "4" },
+        { value: 5, label: "5" },
+      ],
+    },
+]

@@ -1,15 +1,20 @@
-import { LazyAbout, LazyContact } from "../lazy";
+import { LazyMyHotels, LazyMyBookings, LazyAddHotels } from "../lazy";
 import type { RoutesT } from "../../../types/route.type";
 export const allPrivateRoutes: RoutesT = [
   {
-    key: "about",
-    path: "/about",
-    element: <LazyAbout />,
+    key: "my-hotels",
+    path: "/my-hotels",
+    element: <LazyMyHotels />,
   },
   {
-    key: "contact",
-    path: "/contact",
-    element: <LazyContact />,
+    key: "my-bookings",
+    path: "/my-bookings",
+    element: <LazyMyBookings />,
+  },
+  {
+    key: "add-hotel",
+    path: "/add-hotel",
+    element: <LazyAddHotels />,
   },
 ];
 
