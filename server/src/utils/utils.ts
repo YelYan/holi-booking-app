@@ -1,4 +1,5 @@
 import config from "#config/config.js"
+import multer from "multer"
 import nodemailer from "nodemailer"
 
 export const sendEmail = (options : Record< "subject" | "text" | "to"  , string>) => {
@@ -84,3 +85,12 @@ export function getErrorMessages (error : unknown) :string {
     }
     return "Unknown error occurred!!!";
 }
+
+const storage = multer.memoryStorage();
+export const upload = multer({
+  storage : storage,
+    limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
+})
+
