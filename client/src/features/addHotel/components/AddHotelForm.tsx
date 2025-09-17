@@ -2,7 +2,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { BtnLoading } from "@/shared/common";
 import DetailsFormSection from "./DetailsFormSection";
-import TypeFormSection from "./TypeFormSection";
 import type { HotelFormDataT } from "@/types/hotel.type";
 import {
   Card,
@@ -32,7 +31,6 @@ const AddHotelForm = ({ isLoading }: AddHotelFormPropsT) => {
         <FormProvider {...formMethods}>
           <form onSubmit={onSubmit}>
             <DetailsFormSection />
-            <TypeFormSection />
             <Button
               type="submit"
               variant={"default"}

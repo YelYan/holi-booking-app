@@ -1,3 +1,21 @@
+export const hotelTypes = [
+  "Budget",
+  "Boutique",
+  "Luxury",
+  "Ski Resort",
+  "Business",
+  "Family",
+  "Romantic",
+  "Hiking Resort",
+  "Cabin",
+  "Beach Resort",
+  "Golf Resort",
+  "Motel",
+  "All Inclusive",
+  "Pet Friendly",
+  "Self Catering",
+];
+
 export const loginformControls = [
     {
         name : "email",
@@ -127,4 +145,20 @@ export const detailsSectionFormControls = [
         { value: 5, label: "5" },
       ],
     },
+    {
+      name: "hotel types",
+      label: "Hotel Types",
+      placeholder: "Select Hotel Types",
+      componentType: "select",
+      validation : {required : true},
+    options: hotelTypes.map((type) => ({
+    value: type,
+    label: type,
+  })),
+    },
 ]
+
+
+
+
+
