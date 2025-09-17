@@ -4,16 +4,35 @@ import { Request, Response } from "express";
 import asyncErrorWrapper from "express-async-handler"
 
 export const getMyHotels = asyncErrorWrapper(async (req: Request, res: Response) => {
-    const products = await myHotelService.getMyHotels();
-    res.status(200).json(products);
+    const userId = req.auth.payload.userId;
+    const hotels = await myHotelService.getMyHotels(userId);
+    res.status(200).json({
+        success : true,
+        message : "Your hotels",
+        hotels
+    });
 })
 export const getMyHotelById= asyncErrorWrapper(async (req: Request, res: Response) => {
-    const products = await myHotelService.getMyHotelById();
-    res.status(200).json(products);
+    const hotelId = req.params.hotelId;
+    const userId = req.auth.payload.userId;
+    const hotel = await myHotelService.getMyHotelById(hotelId , userId);
+    res.status(200).json({
+        success : true,
+        message : "Get Hotel By Id",
+        hotel
+    });
 })
 export const updateMyHotels = asyncErrorWrapper(async (req: Request, res: Response) => {
-    const products = await myHotelService.updateMyHotel();
-    res.status(200).json(products);
+        const imageFiles = req.files as Express.Multer.File[];
+        const updateHotel = req.body as IHotel;
+        const hotelId = req.params.hotelId;
+        const userId =  req.auth.payload.userId;
+        const updatedHotel = await myHotelService.updateMyHotel(imageFiles,updateHotel, userId, hotelId );
+        res.status(201).json({
+            success: true,
+            message: "Hotel created successfully",
+            updatedHotel,
+        });
 })
 
 export const createMyHotelWithImages = asyncErrorWrapper(async (req : Request, res:Response) => {
@@ -22,9 +41,9 @@ export const createMyHotelWithImages = asyncErrorWrapper(async (req : Request, r
         const userId =  req.auth.payload.userId;
 
         const hotel = await myHotelService.createHotelWithImages(imageFiles, newHotel , userId)
-        res.status(201).json({
-        success: true,
-        message: "Hotel created successfully",
-        hotel,
-    });
+            res.status(201).json({
+            success: true,
+            message: "Hotel created successfully",
+            hotel,
+        });
 })

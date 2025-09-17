@@ -9,6 +9,6 @@ const router = express.Router();
 router.post("/create-my-hotel", validateRequest(hotelFormSchemaValidate),upload.array("imageFiles", 6), createMyHotelWithImages);
 router.get("/get-my-hotels", getMyHotels);
 router.get("/:hotelId",  validateRequest(hotelFormSchemaValidate), getMyHotelById);
-router.put("/update-my-hotel/:hotelId", validateRequest(hotelFormSchemaValidate), updateMyHotels);
+router.put("/update-my-hotel/:hotelId", validateRequest(hotelFormSchemaValidate), upload.array("imageFiles", 6), updateMyHotels);
 
 export default router
