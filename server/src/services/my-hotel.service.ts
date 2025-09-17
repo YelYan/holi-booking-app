@@ -56,7 +56,7 @@ class myHotelService {
         }
 
         const updatedImageUrls = await this.uploadImages(imageFiles);
-        console.log(updateHotel.imageUrls);
+        updateHotel.lastUpdated = new Date();
 
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!updateHotel.imageUrls) {
