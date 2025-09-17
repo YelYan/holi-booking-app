@@ -16,6 +16,18 @@ export const hotelTypes = [
   "Self Catering",
 ];
 
+export const hotelFacilities = [
+  "Free WiFi",
+  "Parking",
+  "Airport Shuttle",
+  "Family Rooms",
+  "Non-Smoking Rooms",
+  "Outdoor Pool",
+  "Spa",
+  "Fitness Center",
+  "Jacuzzi",
+];
+
 export const loginformControls = [
     {
         name : "email",
@@ -151,10 +163,29 @@ export const detailsSectionFormControls = [
       placeholder: "Select Hotel Types",
       componentType: "select",
       validation : {required : true},
-    options: hotelTypes.map((type) => ({
-    value: type,
-    label: type,
-  })),
+      options: hotelTypes.map((type) => ({
+        value: type,
+        label: type,
+      })),
+    },
+]
+
+export const guestsSectionFormControls = [
+      {
+        name : "adultCount",
+        label : "AdultCount",
+        placeholder : "Enter your Adult count",
+        componentType : "input",
+        type : "number",
+        validation : {required : true}
+    },
+    {
+        name : "childCount",
+        label : "ChildCount",
+        placeholder : "Enter your child count",
+        componentType : "input",
+        type : "number",
+        validation : {required : true}
     },
 ]
 
