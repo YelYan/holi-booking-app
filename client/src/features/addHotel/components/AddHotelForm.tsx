@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { BtnLoading } from "@/shared/common";
 import DetailsFormSection from "./DetailsFormSection";
 import FacilitiesSection from "./FacilitiesSection";
+import ImagesUploadSection from "./ImagesUploadSection";
 import type { HotelFormDataT } from "@/types/hotel.type";
 import {
   Card,
@@ -35,6 +36,7 @@ const AddHotelForm = ({ isLoading }: AddHotelFormPropsT) => {
             <DetailsFormSection />
             <FacilitiesSection />
             <GuesteSection />
+            <ImagesUploadSection />
             <Button
               type="submit"
               variant={"default"}
