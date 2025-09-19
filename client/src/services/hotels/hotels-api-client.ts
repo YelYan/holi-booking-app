@@ -20,6 +20,13 @@ export const fetchMyHotels = async () => {
         }
         return response.data;
 }
+export const fetchHotelById = async (hotelId : string) => {
+        const response = await apiClient.get(`/my-hotels/${hotelId}`);
+        if(!response.data) {
+            throw new Error("Error fetching hotel");
+        }
+        return response.data;
+}
 
 
 /*---------------- api hooks ------------------*/ 
@@ -27,6 +34,13 @@ export const useMyHotels = () => {
 return useQuery({
     queryKey : ["my-hotels"],
     queryFn : fetchMyHotels,
+})
+}
+
+export const useMyHotelById = (hotelId : string) => {
+return useQuery({
+    queryKey : ["my-hotels", hotelId],
+    queryFn : () => fetchHotelById(hotelId),
 })
 }
 

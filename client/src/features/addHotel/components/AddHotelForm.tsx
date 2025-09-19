@@ -15,24 +15,37 @@ import {
 import GuesteSection from "./GuestesSection";
 
 type AddHotelFormPropsT = {
+  type?: "edit" | "create";
+  hotel?: HotelFormDataT;
   isLoading: boolean;
   isSuccess: boolean;
   onSave: (hotelformData: FormData) => void;
 };
 
-const AddHotelForm = ({ isLoading, onSave, isSuccess }: AddHotelFormPropsT) => {
-  const formMethods = useForm<HotelFormDataT>({});
+const ManageHotelForm = ({
+  type,
+  hotel,
+  isLoading,
+  onSave,
+  isSuccess,
+}: AddHotelFormPropsT) => {
+  const formMethods = useForm<HotelFormDataT>({
+    defaultValues: {
+      starRating: 1,
+      type: "",
+    },
+  });
 
   const { reset } = formMethods;
-
+  console.log(hotel);
   useEffect(() => {
     if (isSuccess) {
-      reset();
+      reset(hotel);
     }
-  }, [isSuccess, reset]);
+  }, [isSuccess, reset, hotel]);
 
   function onSubmit(formDataJson: HotelFormDataT) {
-    console.log(formDataJson);
+    // console.log(formDataJson);
     const formData = new FormData();
     formData.append("name", formDataJson.name);
     formData.append("city", formDataJson.city);
@@ -65,7 +78,7 @@ const AddHotelForm = ({ isLoading, onSave, isSuccess }: AddHotelFormPropsT) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Add Hotel</CardTitle>
+        <CardTitle>{type === "edit" ? "Edit" : "Add"} Hotel</CardTitle>
         <CardDescription>Fill your hotel information</CardDescription>
       </CardHeader>
       <CardContent>
@@ -93,4 +106,4 @@ const AddHotelForm = ({ isLoading, onSave, isSuccess }: AddHotelFormPropsT) => {
   );
 };
 
-export default AddHotelForm;
+export default ManageHotelForm;

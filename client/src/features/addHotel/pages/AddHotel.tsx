@@ -1,4 +1,4 @@
-import AddHotelForm from "../components/AddHotelForm";
+import ManageHotelForm from "../components/AddHotelForm";
 import { useAddHotel } from "@/services/hotels/hotels-api-client";
 
 const AddHotel = () => {
@@ -8,7 +8,7 @@ const AddHotel = () => {
   }
 
   return (
-    <AddHotelForm
+    <ManageHotelForm
       onSave={handleSave}
       isLoading={addHotel.isPending}
       isSuccess={addHotel.isSuccess}

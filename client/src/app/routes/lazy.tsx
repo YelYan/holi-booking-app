@@ -26,6 +26,9 @@ export const LazyMyBookings = lazy(
 export const LazyAddHotels = lazy(
   () => import("@/features/addHotel/pages/AddHotel")
 );
+export const LazyEditHotels = lazy(
+  () => import("@/features/editHotel/pages/EditHotel")
+);
 
 /* Dashboard pages */
 export const LazyDashboard = lazy(

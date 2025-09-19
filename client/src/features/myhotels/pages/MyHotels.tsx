@@ -38,8 +38,8 @@ const MyHotels = () => {
       </div>
 
       <div className="grid gap-4">
-        {data?.hotels.map((hotel: HotelFormDataT) => (
-          <Card className="flex">
+        {data?.hotels.map((hotel: HotelFormDataT, index: number) => (
+          <Card className="flex" key={index}>
             <CardHeader>
               <CardTitle>{hotel.name}</CardTitle>
               <CardDescription>{hotel.description}</CardDescription>
@@ -72,7 +72,7 @@ const MyHotels = () => {
                 </div>
               </div>
 
-              <Link to={`edit-hotel/${hotel._id}`}>
+              <Link to={`/edit-hotel/${hotel._id}`}>
                 <Button className="cursor-pointer border border-blue-700 bg-blue-700 text-white hover:bg-transparent hover:text-blue-700">
                   View details
                 </Button>

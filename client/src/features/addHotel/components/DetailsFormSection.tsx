@@ -128,11 +128,11 @@ const DetailsFormSection = () => {
                       <Select
                         onValueChange={field.onChange}
                         value={
-                          typeof field.value === "string" ||
-                          typeof field.value === "undefined"
-                            ? field.value
-                            : typeof field.value === "number"
+                          // Simplify the value check
+                          typeof field.value === "number"
                             ? String(field.value)
+                            : typeof field.value === "string"
+                            ? field.value
                             : ""
                         }
                       >
