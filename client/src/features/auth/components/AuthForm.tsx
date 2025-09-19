@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import LoadingSpinner from "@/shared/common/loading/LoadingSpinner";
+import { BtnLoading } from "@/shared/common";
 import useRenderFormErrors from "@/shared/hooks/useRenderFormErrors";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { AuthFormPropsT, AuthType } from "@/types/schemas.type";
@@ -189,7 +189,7 @@ const AuthForm = ({
             type="submit"
             disabled={isSubmitDisabled}
           >
-            {isSubmitting || isPending ? <LoadingSpinner /> : "Submit"}
+            {isSubmitting || isPending ? <BtnLoading /> : "Submit"}
           </Button>
         </form>
       </CardContent>

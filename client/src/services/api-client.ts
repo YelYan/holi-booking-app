@@ -8,9 +8,9 @@ const API_URL = "http://localhost:9000/api/v1" ;
 
 const apiClient = axios.create({
     baseURL: API_URL,
-    headers: {
-        "Content-Type": "application/json",
-    },
+    // headers: {
+    //     "Content-Type": "application/json",
+    // },
     withCredentials: true, // Send Cookies with every request
 })
 

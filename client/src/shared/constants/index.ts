@@ -136,7 +136,7 @@ export const detailsSectionFormControls = [
         validation : {required : true}
     },
     {
-        name : "pricePernight",
+        name : "pricePerNight",
         label : "Price Per Night",
         placeholder : "Enter your price",
         componentType : "input",
@@ -144,7 +144,7 @@ export const detailsSectionFormControls = [
         validation : {required : true}
     },
     {
-      name: "star rating",
+      name: "starRating",
       label: "Star Rating",
       placeholder: "Select Star Rating",
       componentType: "select",
@@ -158,7 +158,7 @@ export const detailsSectionFormControls = [
       ],
     },
     {
-      name: "hotel types",
+      name: "type",
       label: "Hotel Types",
       placeholder: "Select Hotel Types",
       componentType: "select",

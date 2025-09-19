@@ -17,7 +17,7 @@ const GuesteSection = () => {
     <div className="relative space-y-4">
       {guestsSectionFormControls.map((formControl) => {
         return (
-          <div className="grid gap-1">
+          <div className="grid gap-1" key={formControl.name}>
             <Label>{formControl.label}</Label>
             <Controller
               name={formControl.name as keyof HotelFormDataT}

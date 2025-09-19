@@ -28,6 +28,48 @@ const DetailsFormSection = () => {
           <Label>{formControl.label}</Label>
           <Controller
             control={control}
+            rules={{
+              validate: (value) => {
+                // Example of a custom validation based on the field's name
+                if (
+                  formControl.name === "name" &&
+                  typeof value === "string" &&
+                  value.length < 3
+                ) {
+                  return "Hotel name must be at least 3 characters.";
+                }
+                if (
+                  formControl.name === "country" &&
+                  typeof value === "string" &&
+                  value.length < 1
+                ) {
+                  return "Country name must be at least 3 characters.";
+                }
+                if (
+                  formControl.name === "city" &&
+                  typeof value === "string" &&
+                  value.length < 1
+                ) {
+                  return "City name must be at least 3 characters.";
+                }
+                if (
+                  formControl.name === "description" &&
+                  typeof value === "string" &&
+                  value.length < 10
+                ) {
+                  return "Description must be at least 10 characters.";
+                }
+                if (
+                  formControl.name === "pricePerNight" &&
+                  typeof value === "number" &&
+                  value <= 0
+                ) {
+                  return "Price per night must be a positive number.";
+                }
+                // Return true if the value is valid
+                return true;
+              },
+            }}
             name={formControl.name as keyof HotelFormDataT}
             render={({ field }) => {
               switch (formControl.componentType) {

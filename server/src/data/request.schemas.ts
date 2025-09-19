@@ -172,7 +172,6 @@ export const hotelFormSchemaValidate = Joi.object({
       "number.positive": "Price per night must be positive.",
       "any.required": "Price per night is required.",
     }),
-
   starRating: Joi.number()
     .min(1)
     .max(5)

@@ -15,6 +15,7 @@ const ImagesUploadSection = () => {
   const [previews, setPreviews] = useState<{ file: File; url: string }[]>([]);
   const { renderFormErrors } = useRenderFormErrors();
   const selectedFile = watch("imageFiles");
+  // const existingImgUrls = watch("imageUrls");
 
   useEffect(() => {
     if (!selectedFile || selectedFile.length === 0) {
@@ -28,8 +29,12 @@ const ImagesUploadSection = () => {
       const url = URL.createObjectURL(file);
       objectUrls.push({ file, url });
     });
-
     setPreviews(objectUrls);
+    // if (existingImgUrls) {
+    //   setPreviews(existingImgUrls);
+    // } else {
+    //   setPreviews(objectUrls);
+    // }
 
     // Cleanup on unmount
     return () => objectUrls.forEach(({ url }) => URL.revokeObjectURL(url));
@@ -52,10 +57,17 @@ const ImagesUploadSection = () => {
           control={control}
           name="imageFiles"
           rules={{
-            validate: (files) =>
-              files && files.length > 0
-                ? true
-                : "At least one image is required",
+            validate: (files) => {
+              if (files && files.length > 6) {
+                return "images cannot be more than 6";
+              }
+
+              if (files && files.length > 0) {
+                return true;
+              } else {
+                return "At least one image is required";
+              }
+            },
           }}
           render={({ field }) => (
             <>
