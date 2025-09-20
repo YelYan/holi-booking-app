@@ -34,7 +34,6 @@ const ManageHotelForm = ({
   });
 
   const { reset } = formMethods;
-  console.log(hotel);
   useEffect(() => {
     if (isSuccess) {
       reset(hotel);

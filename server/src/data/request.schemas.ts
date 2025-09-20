@@ -202,11 +202,11 @@ export const hotelFormSchemaValidate = Joi.object({
   //     })
   //   )
   //   .optional(),
-  // imageUrls: Joi.array()
-  //   .items(Joi.string().uri().messages({
-  //     "string.uri": "Each image URL must be a valid URI.",
-  //   }))
-  //   .optional(),
+  imageUrls: Joi.array()
+    .items(Joi.string().uri().messages({
+      "string.uri": "Each image URL must be a valid URI.",
+    }))
+    .optional(),
 
   adultCount: Joi.number()
     .integer()

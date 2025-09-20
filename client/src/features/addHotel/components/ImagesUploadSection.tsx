@@ -12,42 +12,61 @@ const ImagesUploadSection = () => {
     watch,
     formState: { errors },
   } = useFormContext<HotelFormDataT>();
-  const [previews, setPreviews] = useState<{ file: File; url: string }[]>([]);
+
+  // A state to manage the previews for both new and existing images
+  const [previews, setPreviews] = useState<{ url: string; isNew: boolean }[]>(
+    []
+  );
+
+  // Watch for changes in both imageFiles and existing imageUrls
+  const selectedFiles = watch("imageFiles");
+  const existingImageUrls = watch("imageUrls");
+
   const { renderFormErrors } = useRenderFormErrors();
-  const selectedFile = watch("imageFiles");
-  // const existingImgUrls = watch("imageUrls");
 
   useEffect(() => {
-    if (!selectedFile || selectedFile.length === 0) {
-      setPreviews([]);
-      return;
-    }
+    // This effect runs on initial load and when new files are selected.
 
-    const objectUrls: { file: File; url: string }[] = [];
+    // First, map existing URLs into preview objects.
+    const existingPreviews = (existingImageUrls || []).map((url) => ({
+      url,
+      isNew: false, // Flag as not a new image
+    }));
 
-    Array.from(selectedFile).forEach((file) => {
-      const url = URL.createObjectURL(file);
-      objectUrls.push({ file, url });
-    });
-    setPreviews(objectUrls);
-    // if (existingImgUrls) {
-    //   setPreviews(existingImgUrls);
-    // } else {
-    //   setPreviews(objectUrls);
-    // }
+    // Then, create object URLs for the newly selected files.
+    const newPreviews = Array.from(selectedFiles || []).map((file) => ({
+      url: URL.createObjectURL(file),
+      isNew: true, // Flag as a new image
+    }));
 
-    // Cleanup on unmount
-    return () => objectUrls.forEach(({ url }) => URL.revokeObjectURL(url));
-  }, [selectedFile]);
+    // Combine both sets of previews
+    setPreviews([...existingPreviews, ...newPreviews]);
+
+    // Cleanup object URLs on unmount to prevent memory leaks
+    return () => {
+      newPreviews.forEach((preview) => URL.revokeObjectURL(preview.url));
+    };
+  }, [selectedFiles, existingImageUrls]);
 
   const removeImage = (index: number) => {
-    const updatedPreviews = previews.filter((_, i) => i !== index);
-    setPreviews(updatedPreviews);
-    // Update form value
-    const updatedFiles = updatedPreviews.map((p) => p.file);
-    setValue("imageFiles", updatedFiles as unknown as FileList, {
-      shouldValidate: true,
-    });
+    // Check if the image to remove is an existing one or a new one
+    const imageToRemove = previews[index];
+
+    if (imageToRemove.isNew) {
+      // Logic for new files
+      const updatedFiles = Array.from(selectedFiles || []).filter(
+        (_, i) => i !== index - (existingImageUrls || []).length
+      );
+      setValue("imageFiles", updatedFiles as unknown as FileList, {
+        shouldValidate: true,
+      });
+    } else {
+      // Logic for existing URLs
+      const updatedUrls = (existingImageUrls || []).filter(
+        (_, i) => i !== index
+      );
+      setValue("imageUrls", updatedUrls, { shouldValidate: true });
+    }
   };
 
   return (
@@ -58,15 +77,16 @@ const ImagesUploadSection = () => {
           name="imageFiles"
           rules={{
             validate: (files) => {
-              if (files && files.length > 6) {
-                return "images cannot be more than 6";
-              }
+              const totalImages =
+                (files?.length || 0) + (existingImageUrls?.length || 0);
 
-              if (files && files.length > 0) {
-                return true;
-              } else {
+              if (totalImages > 6) {
+                return "Images cannot be more than 6";
+              }
+              if (totalImages === 0) {
                 return "At least one image is required";
               }
+              return true;
             },
           }}
           render={({ field }) => (
@@ -77,7 +97,9 @@ const ImagesUploadSection = () => {
                 accept="image/*"
                 className="hidden"
                 id="image-upload"
-                onChange={(e) => field.onChange(e.target.files)}
+                onChange={(e) => {
+                  field.onChange(e.target.files);
+                }}
               />
               <Label
                 htmlFor="image-upload"
@@ -85,34 +107,34 @@ const ImagesUploadSection = () => {
               >
                 Upload Images
               </Label>
-
-              {previews.length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {previews.map(({ url }, index) => (
-                    <div
-                      key={index}
-                      className="relative w-20 h-20 rounded overflow-hidden border"
-                    >
-                      <img
-                        src={url}
-                        alt={`preview-${index}`}
-                        className="w-full h-full object-cover"
-                      />
-                      <Button
-                        type="button"
-                        className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cursor-pointer"
-                        onClick={() => removeImage(index)}
-                      >
-                        &times;
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              )}
             </>
           )}
         />
       </div>
+
+      {previews.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-2">
+          {previews.map((preview, index) => (
+            <div
+              key={index}
+              className="relative w-20 h-20 rounded overflow-hidden border"
+            >
+              <img
+                src={preview.url}
+                alt={`preview-${index}`}
+                className="w-full h-full object-cover"
+              />
+              <Button
+                type="button"
+                className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cursor-pointer"
+                onClick={() => removeImage(index)}
+              >
+                &times;
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
       {errors.imageFiles?.message &&
         renderFormErrors(errors.imageFiles.message)}
     </div>

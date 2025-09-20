@@ -30,7 +30,7 @@ export const updateMyHotels = asyncErrorWrapper(async (req: Request, res: Respon
         const updatedHotel = await myHotelService.updateMyHotel(imageFiles,updateHotel, userId, hotelId );
         res.status(201).json({
             success: true,
-            message: "Hotel created successfully",
+            message: "Hotel updated successfully",
             updatedHotel,
         });
 })
