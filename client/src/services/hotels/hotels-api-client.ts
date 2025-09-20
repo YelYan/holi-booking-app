@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { AxiosError } from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery , useQueryClient } from "@tanstack/react-query";
 import apiClient from "../api-client";
 import type { HotelFormDataT } from "@/types/hotel.type";
 import type { ErrorResponse } from "@/types/api.type";
@@ -36,7 +36,13 @@ export const fetchUpdateHotel = async ({formData, hotelId}: {formData : FormData
         }
         return response.data;
 }
-
+export const fetchDeleteHotel = async (hotelId : string) => {
+        const response = await apiClient.delete(`/my-hotels/${hotelId}`);
+        if(!response.data) {
+            throw new Error("Error fetching hotel");
+        }
+        return response.data;
+}
 /*---------------- api hooks ------------------*/ 
 export const useMyHotels = () => {
 return useQuery({
@@ -70,6 +76,21 @@ export const useUpdateHotel = (hotelId : string) => {
         onSuccess: async (data) => {
             toast.success(data.message);
             navigate(-1)
+        },
+        onError: (error : AxiosError<ErrorResponse>) => {
+           showValidationError(error)
+        },
+    })
+}
+export const useDeleteHotel = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn : (hotelId : string) => fetchDeleteHotel(hotelId),
+        onSuccess: async (data) => {
+            toast.success(data.message);
+            // invalidate the list of all hotels, trigger re-fetch
+            queryClient.invalidateQueries({ queryKey: ["my-hotels"] });
         },
         onError: (error : AxiosError<ErrorResponse>) => {
            showValidationError(error)

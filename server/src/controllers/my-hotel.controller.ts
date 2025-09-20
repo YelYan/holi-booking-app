@@ -34,7 +34,16 @@ export const updateMyHotels = asyncErrorWrapper(async (req: Request, res: Respon
             updatedHotel,
         });
 })
-
+export const deleteMyHotels = asyncErrorWrapper(async (req: Request, res: Response) => {
+    const hotelId = req.params.hotelId;
+    const userId = req.auth.payload.userId;
+    const hotel = await myHotelService.deleteMyHotel(hotelId , userId);
+    res.status(200).json({
+        success : true,
+        message : "Deleted hotel successfully",
+        hotel
+    });
+})
 export const createMyHotelWithImages = asyncErrorWrapper(async (req : Request, res:Response) => {
         const imageFiles = req.files as Express.Multer.File[];
         const newHotel = req.body as IHotel;

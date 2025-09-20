@@ -23,6 +23,9 @@ class myHotelService {
 
         return hotel;
     }
+    public async deleteMyHotel (hotelId : string, userId : string) {
+        return await Hotel.findOneAndDelete({_id : hotelId, userId});
+    }
     public async getMyHotelById (hotelId : string, userId : string) {
         return await Hotel.findOne({_id : hotelId, userId});
     }

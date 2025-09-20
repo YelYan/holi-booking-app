@@ -1,4 +1,4 @@
-import {  createMyHotelWithImages, getMyHotelById, getMyHotels, updateMyHotels} from "#controllers/my-hotel.controller.js";
+import {  createMyHotelWithImages,deleteMyHotels, getMyHotelById, getMyHotels,updateMyHotels} from "#controllers/my-hotel.controller.js";
 import { hotelFormSchemaValidate } from "#data/request.schemas.js";
 import validateRequest from "#middleware/validate.request.js";
 import { upload } from "#utils/utils.js";
@@ -10,5 +10,6 @@ router.post("/create-my-hotel",upload.array("imageFiles", 6), validateRequest(ho
 router.get("/get-my-hotels", getMyHotels);
 router.get("/:hotelId",  validateRequest(hotelFormSchemaValidate), getMyHotelById);
 router.put("/update-my-hotel/:hotelId", upload.array("imageFiles", 6),validateRequest(hotelFormSchemaValidate), updateMyHotels);
+router.delete("/:hotelId", deleteMyHotels)
 
 export default router

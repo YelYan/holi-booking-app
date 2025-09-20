@@ -10,6 +10,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import type { HotelFormDataT } from "@/types/hotel.type";
+import { DeleteBtn } from "../components/DeleteBtn";
 import {
   Building2,
   ChartBarStacked,
@@ -40,9 +41,14 @@ const MyHotels = () => {
       <div className="grid gap-4">
         {data?.hotels.map((hotel: HotelFormDataT, index: number) => (
           <Card className="flex" key={index}>
-            <CardHeader>
-              <CardTitle>{hotel.name}</CardTitle>
-              <CardDescription>{hotel.description}</CardDescription>
+            <CardHeader className="flex justify-between items-start">
+              <div>
+                <CardTitle>{hotel.name}</CardTitle>
+                <CardDescription>{hotel.description}</CardDescription>
+              </div>
+              <div>
+                <DeleteBtn hotelId={hotel._id} />
+              </div>
             </CardHeader>
             <CardContent className="flex justify-between items-end">
               <div className="flex items-start gap-4">
