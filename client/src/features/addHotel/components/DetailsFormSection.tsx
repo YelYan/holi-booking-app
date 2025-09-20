@@ -126,6 +126,7 @@ const DetailsFormSection = () => {
                   return (
                     <div className="relative">
                       <Select
+                        {...field}
                         onValueChange={field.onChange}
                         value={
                           // Simplify the value check

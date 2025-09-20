@@ -30,10 +30,7 @@ const ManageHotelForm = ({
   isSuccess,
 }: AddHotelFormPropsT) => {
   const formMethods = useForm<HotelFormDataT>({
-    defaultValues: {
-      starRating: 1,
-      type: "",
-    },
+    defaultValues: hotel,
   });
 
   const { reset } = formMethods;
