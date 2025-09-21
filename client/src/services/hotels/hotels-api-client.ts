@@ -3,12 +3,12 @@ import { useNavigate } from "react-router";
 import { AxiosError } from "axios";
 import { useMutation, useQuery , useQueryClient } from "@tanstack/react-query";
 import apiClient from "../api-client";
-import type { HotelFormDataT } from "@/types/hotel.type";
+
 import type { ErrorResponse } from "@/types/api.type";
 import { showValidationError } from "@/lib/showValidationErrors";
 
 /*---------------- api fetch ------------------*/ 
-export const fetchAddHotel = async (formdata: HotelFormDataT) => {
+export const fetchAddHotel = async (formdata: FormData) => {
         const response = await apiClient.post("/my-hotels/create-my-hotel", formdata);
         if(!response.data) {
             throw new Error("Add Hotel failed");
@@ -59,10 +59,12 @@ return useQuery({
 }
 
 export const useAddHotel = () => {
+    const navigate = useNavigate()
     return useMutation({
         mutationFn : fetchAddHotel,
         onSuccess: async (data) => {
             toast.success(data.message);
+            navigate(-1)
         },
         onError: (error : AxiosError<ErrorResponse>) => {
            showValidationError(error)

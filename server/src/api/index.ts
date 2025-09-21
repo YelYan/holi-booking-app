@@ -1,8 +1,9 @@
 import authenticateUser from "#middleware/authenticate-user.js";
 import authRoutes from '#routes/auth.route.js';
 import myHotelRoutes from "#routes/my-hotel.route.js";
-import userRoutes from '#routes/user.route.js';
-import express from 'express';
+import hotelsRoutes from "#routes/search-hotel.route.js"
+import express , {Request , Response} from 'express';
+import path from "path";
 
 const router = express.Router();
 
@@ -11,6 +12,11 @@ router.get("/test" , (req, res) => {
 })
 
 router.use("/auth", authRoutes);
-router.use("/user", userRoutes);
 router.use("/my-hotels", authenticateUser,  myHotelRoutes);
+router.use("/hotels",  hotelsRoutes);
+
+// router.get("*" , (req : Request, res : Response) => {
+//     res.sendFile(path.join(__dirname, "../../client/dist/index.html"))
+// })
+
 export default router;
