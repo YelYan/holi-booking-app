@@ -26,8 +26,8 @@ const searchSlice = createSlice({
     // Action to set all search values at once
     saveSearchValues: (state, action: PayloadAction<{
       destination: string;
-      checkIn: Date;
-      checkOut: Date;
+      checkIn: Date | null;
+      checkOut: Date | null;
       adultCount: number;
       childCount: number;
       hotelId?: string;

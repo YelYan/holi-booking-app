@@ -1,5 +1,6 @@
 import { Plane } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router";
 import { Input } from "@/components/ui/input";
 import { useAppSelector, useAppDispatch } from "@/store/hook";
 import {
@@ -8,6 +9,8 @@ import {
   setChildCount,
   setCheckIn,
   setCheckOut,
+  saveSearchValues,
+  resetSearchValues,
 } from "@/store/slices/searchSlice";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -18,15 +21,30 @@ const SearchBar = () => {
   const { destination, adultCount, childCount, checkIn, checkOut } =
     useAppSelector((state) => state.search);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    dispatch(
+      saveSearchValues({
+        destination,
+        adultCount,
+        childCount,
+        checkIn,
+        checkOut,
+      })
+    );
+    navigate("/search");
+  }
+
+  function handleReset() {
+    dispatch(resetSearchValues());
   }
 
   const minDate = new Date();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
-  console.log(destination, "des");
   return (
     <form
       onSubmit={handleSubmit}
@@ -114,6 +132,7 @@ const SearchBar = () => {
           <Button
             type="button"
             className="bg-red-600 text-white  border border-red-700 hover:bg-transparent hover:text-red-600 cursor-pointer"
+            onClick={handleReset}
           >
             Clear
           </Button>
