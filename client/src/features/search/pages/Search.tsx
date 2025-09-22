@@ -3,6 +3,7 @@ import { useSearchHotels } from "@/services/searchFilters/search-filter-api-clie
 import { useAppSelector } from "@/store/hook";
 import FilterAll from "../components/FilterAll";
 import SearchResultsCard from "../components/SearchResultsCard";
+import SortingFilter from "../components/SortingFilter";
 import { CardSkeleton } from "@/shared/common";
 import type { HotelFormDataT } from "@/types/hotel.type";
 import {
@@ -22,6 +23,7 @@ const Search = () => {
   const [facilities, setFacilities] = useState<string[]>([]);
   const [allHotelType, setHotelTypes] = useState<string[]>([]);
   const [selectedMaxPrice, setSelectMaxPrice] = useState<number | undefined>();
+  const [sortOption, setSortOption] = useState<string>("");
 
   const searchParams = {
     destination: searchValues.destination,
@@ -34,6 +36,7 @@ const Search = () => {
     types: allHotelType,
     maxPrice: selectedMaxPrice?.toString(),
     facilities,
+    sortOption,
   };
 
   // fecth search hotels api
@@ -84,13 +87,31 @@ const Search = () => {
           handleMaxPriceChange={handleMaxPriceChange}
         />
       </div>
+
+      {/* search content info */}
       <div className="md:col-span-2">
         {isLoading && <CardSkeleton />}
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="text-lg font-medium">
+            {hotelData?.data?.length} hotels found
+          </h3>
+
+          <div className="grid gap-3">
+            <SortingFilter
+              sortOption={sortOption}
+              setSortOption={setSortOption}
+            />
+          </div>
+        </div>
+
+        {/* No hotel found */}
         {hotelData?.data.length == 0 && (
           <h3 className="text-center font-bold my-8 text-2xl">
             No Hotel Found ! Try refresh
           </h3>
         )}
+
+        {/* Search resut cards */}
         {isSuccess && (
           <div className="grid gap-4">
             {hotelData?.data.map((hotel: HotelFormDataT) => (
@@ -99,6 +120,7 @@ const Search = () => {
           </div>
         )}
 
+        {/* pagination */}
         {hotelData?.pagination &&
           hotelData?.pagination?.total > 1 &&
           hotelData?.data.length > 0 && (
