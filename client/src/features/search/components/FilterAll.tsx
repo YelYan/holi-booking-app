@@ -17,15 +17,17 @@ type MultiSelectChangeHandler = (
 ) => void;
 
 type FilterAllProps = {
+  selectedStar: string[];
   facilities: string[];
   allHotelType: string[];
-  handleStarChange: SingleValueChangeHandler;
   handleMaxPriceChange: SingleValueChangeHandler;
+  handleStarChange: MultiSelectChangeHandler;
   handlefacilitiesChange: MultiSelectChangeHandler;
   handleHotelTypeChange: MultiSelectChangeHandler;
 };
 
 const FilterAll = ({
+  selectedStar,
   allHotelType,
   facilities,
   handleStarChange,
@@ -40,19 +42,21 @@ const FilterAll = ({
       </h3>
       {/* star rating Filter */}
       <div className="grid gap-3">
-        <Label>Rate stars</Label>
-        <Select onValueChange={handleStarChange}>
-          <SelectTrigger className="w-full cursor-pointer">
-            <SelectValue className="text-black" placeholder="Star Rating" />
-          </SelectTrigger>
-          <SelectContent>
-            {[1, 2, 3, 4, 5].map((star) => (
-              <div className="" key={star}>
-                <SelectItem value={star.toString()}>{star}</SelectItem>
-              </div>
-            ))}
-          </SelectContent>
-        </Select>
+        <Label>Star Rating</Label>
+        <div className="flex gap-2">
+          {["5", "4", "3", "2", "1"].map((star: string) => {
+            return (
+              <Label key={star}>
+                <Checkbox
+                  value={star}
+                  checked={selectedStar.includes(star)}
+                  onCheckedChange={(checked) => handleStarChange(checked, star)}
+                />
+                <span className="font-light">{star}</span>
+              </Label>
+            );
+          })}
+        </div>
       </div>
       {/* Hotel types Filter */}
       <div className="grid gap-3">

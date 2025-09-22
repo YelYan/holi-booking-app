@@ -8,7 +8,6 @@ type SearchResultsCardPropsT = {
   hotel: HotelFormDataT;
 };
 const SearchResultsCard = ({ hotel }: SearchResultsCardPropsT) => {
-  console.log(hotel);
   return (
     <Card key={hotel._id} className="rounded-sm">
       <CardContent className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-2">

@@ -13,13 +13,16 @@ export const searchHotels = asyncErrorWrapper(async (req :Request, res : Respons
 
     const total = await Hotel.countDocuments();
 
+    // calculate total pages
+    const totalPages = Math.ceil(total / pageSize);
+
     const response : HotelSearchResponse = {
         data : hotels,
         pagination : {
             total,
             page : pageNumber,
-            pages : Math.ceil(total/ pageSize),
-            hasNextPage : pageNumber < pageSize,
+            pages : totalPages,
+            hasNextPage : pageNumber < totalPages,
             hasPreviousPage : pageNumber > 1
         }
     }

@@ -34,9 +34,17 @@ export const useSearchHotels = (searchParams : SearchParams) => {
     queryParams.append("adultCount" , searchParams.adultCount || "");
     queryParams.append("childCount" , searchParams.childCount || "");
     queryParams.append("page" , searchParams.page || "");
+    queryParams.append("maxPrice" , searchParams.maxPrice || "");
+
+    searchParams.facilities?.forEach((facility) => {
+        return queryParams.append("facilities", facility)
+    })
+    searchParams.types?.forEach((type) => queryParams.append("types", type));
+    searchParams.stars?.forEach((star) => queryParams.append("stars", star));
+
 
 return useQuery({
-    queryKey : ["my-hotels"],
+    queryKey : ["search-hotels" , searchParams],
     queryFn : () => fetchSearchHotels(queryParams as SearchParams),
 })
 }
