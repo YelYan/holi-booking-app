@@ -107,7 +107,7 @@ const Search = () => {
         {/* No hotel found */}
         {hotelData?.data.length == 0 && (
           <h3 className="text-center font-bold my-8 text-2xl">
-            No Hotel Found ! Try refresh
+            No Hotel Found !
           </h3>
         )}
 
