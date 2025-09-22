@@ -6,6 +6,8 @@ import {Document, model, Schema} from "mongoose";
 export interface HotelSearchResponse {
   data : IHotel[],
   pagination : {
+    hasNextPage : boolean;
+    hasPreviousPage : boolean;
     page : number;
     pages : number
     total : number;

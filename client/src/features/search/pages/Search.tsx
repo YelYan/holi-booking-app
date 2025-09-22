@@ -2,7 +2,18 @@ import { useState } from "react";
 import { useSearchHotels } from "@/services/searchFilters/search-filter-api-client";
 import { useAppSelector } from "@/store/hook";
 import FilterAll from "../components/FilterAll";
+import SearchResultsCard from "../components/SearchResultsCard";
 import { CardSkeleton } from "@/shared/common";
+import type { HotelFormDataT } from "@/types/hotel.type";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const Search = () => {
   const [page, setPage] = useState<number>(1);
@@ -22,9 +33,14 @@ const Search = () => {
     page: page.toString(),
   };
 
-  console.log(searchParams, "search");
+  // console.log(searchParams, "search");
 
-  const { data: hotels, isLoading, isSuccess } = useSearchHotels(searchParams);
+  const {
+    data: hotelData,
+    isLoading,
+    isSuccess,
+  } = useSearchHotels(searchParams);
+  console.log(hotelData?.pagination, "pagination");
 
   function handleStarChange(value: string) {
     setSelectStar(value);
@@ -48,7 +64,11 @@ const Search = () => {
     setSelectMaxPrice(maxPrice);
   }
 
-  // console.log(hotels);
+  function handlePageChange(pageNumber: number) {
+    setPage(pageNumber);
+  }
+
+  // console.log(hotelData);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -64,7 +84,56 @@ const Search = () => {
       </div>
       <div className="md:col-span-2">
         {isLoading && <CardSkeleton />}
-        {isSuccess && "Helllo"}
+        {isSuccess && (
+          <div className="grid gap-4">
+            {hotelData?.data.map((hotel: HotelFormDataT) => (
+              <SearchResultsCard hotel={hotel} />
+            ))}
+          </div>
+        )}
+
+        {hotelData?.pagination && hotelData?.pagination?.total > 1 && (
+          <div className="mx-auto my-3">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() => handlePageChange(page - 1)}
+                    className={
+                      !hotelData?.pagination.hasPreviousPage
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }
+                  />
+                </PaginationItem>
+                {Array.from(
+                  { length: hotelData?.pagination?.pages },
+                  (_, i) => i + 1
+                ).map((pageNumber) => (
+                  <PaginationItem key={pageNumber}>
+                    <PaginationLink
+                      onClick={() => handlePageChange(pageNumber)}
+                      isActive={pageNumber === page}
+                    >
+                      {pageNumber}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() => handlePageChange(page + 1)}
+                    className={
+                      !hotelData?.pagination.hasNextPage
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        )}
       </div>
     </div>
   );

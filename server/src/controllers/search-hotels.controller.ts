@@ -18,7 +18,9 @@ export const searchHotels = asyncErrorWrapper(async (req :Request, res : Respons
         pagination : {
             total,
             page : pageNumber,
-            pages : Math.ceil(total/ pageSize)
+            pages : Math.ceil(total/ pageSize),
+            hasNextPage : pageNumber < pageSize,
+            hasPreviousPage : pageNumber > 1
         }
     }
 
