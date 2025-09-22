@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSearchHotels } from "@/services/searchFilters/search-filter-api-client";
 import { useAppSelector } from "@/store/hook";
 import FilterAll from "../components/FilterAll";
-import { LoadingSpinner } from "@/shared/common";
+import { CardSkeleton } from "@/shared/common";
 
 const Search = () => {
   const [page, setPage] = useState<number>(1);
@@ -63,7 +63,7 @@ const Search = () => {
         />
       </div>
       <div className="md:col-span-2">
-        {isLoading && <LoadingSpinner />}
+        {isLoading && <CardSkeleton />}
         {isSuccess && "Helllo"}
       </div>
     </div>
