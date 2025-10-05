@@ -68,7 +68,7 @@ const SearchResultsCard = ({ hotel }: SearchResultsCardPropsT) => {
               </span>
             </div>
             <div className="">
-              <Link to={`/detals/${hotel._id}`}>
+              <Link to={`/details/${hotel._id}`}>
                 <Button className="bg-blue-700 text-white border border-blue-700 hover:bg-transparent hover:text-blue-700 cursor-pointer">
                   View More
                 </Button>

@@ -2,9 +2,7 @@ import axios from "axios";
 import { queryClient } from "@/lib/react-query";
 import { showValidationError } from "@/lib/showValidationErrors";
 
-const API_URL = "http://localhost:9000/api/v1" ;
-
-// const API_URL = import.meta.env.API_URL || "";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9000/api/v1" ;
 
 const apiClient = axios.create({
     baseURL: API_URL,

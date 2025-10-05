@@ -13,6 +13,9 @@ export const LazyResetPassword = lazy(
 );
 export const LazyOTPPage = lazy(() => import("@/features/auth/pages/OTPPage"));
 export const LazySearch = lazy(() => import("@/features/search/pages/Search"));
+export const LazyDetailsHotel = lazy(
+  () => import("@/features/detailsHotel/pages/DetailsHotel")
+);
 
 /* Private pages */
 export const LazyNotFound = lazy(() => import("@/features/NotFound/NotFound"));

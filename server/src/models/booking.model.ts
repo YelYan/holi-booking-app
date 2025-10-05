@@ -1,6 +1,5 @@
 import {Document, model, Schema} from "mongoose";
 
-// The IBooking interface defines the shape of our Booking document
 export interface IBooking extends Document {
     adultCount: number;
     checkIn: Date;
@@ -13,7 +12,8 @@ export interface IBooking extends Document {
     userId: string;
 }
 
-const bookingSchema = new Schema({
+// Export the schema so it can be used in other models
+export const bookingSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
@@ -23,8 +23,8 @@ const bookingSchema = new Schema({
   checkOut: { type: Date, required: true },
   userId: { type: String, required: true },
   totalCost: { type: Number, required: true },
-},   { timestamps: true })
+}, { timestamps: true })
 
-const Booking = model("Booking", bookingSchema);
+const Booking = model<IBooking>("Booking", bookingSchema);
 
 export default Booking

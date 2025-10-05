@@ -55,6 +55,7 @@ export const useMyHotelById = (hotelId : string) => {
 return useQuery({
     queryKey : ["my-hotels", hotelId],
     queryFn : () => fetchHotelById(hotelId),
+    enabled : !!hotelId, // only run the query if hotelId is truthy
 })
 }
 

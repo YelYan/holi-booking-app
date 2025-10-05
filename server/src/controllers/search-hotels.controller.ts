@@ -5,7 +5,7 @@ import asyncErrorWrapper from "express-async-handler";
 
 export const searchHotels = asyncErrorWrapper(async (req :Request, res : Response) => {
 
-    const query = constructSearchQuery(req.query);
+    const query: Record<string, unknown> = constructSearchQuery(req.query);
     console.log(query);
 
     let sortOptions = {};
@@ -27,7 +27,7 @@ export const searchHotels = asyncErrorWrapper(async (req :Request, res : Respons
 
     const skip = (pageNumber- 1) * pageSize;
 
-    const hotels = await Hotel.find(query).sort().skip(skip).limit(pageSize)
+    const hotels = await Hotel.find(query).sort(sortOptions).skip(skip).limit(pageSize)
 
     const total = await Hotel.countDocuments(query);
 
@@ -48,10 +48,12 @@ export const searchHotels = asyncErrorWrapper(async (req :Request, res : Respons
     res.status(200).json(response)
 })
 
-const constructSearchQuery = (queryParams: unknown) => {
-  let constructedQuery: any = {};
+const constructSearchQuery = (queryParams: Record<string, unknown>): Record<string, unknown> => {
+  const constructedQuery: Record<string, unknown> = {};
 
-  if (queryParams.destination) {
+  
+  if (queryParams.destination && typeof queryParams.destination === "string") {
+    console.log(queryParams.destination , "destination");
     constructedQuery.$or = [
       { city: new RegExp(queryParams.destination, "i") },
       { country: new RegExp(queryParams.destination, "i") },
@@ -60,13 +62,13 @@ const constructSearchQuery = (queryParams: unknown) => {
 
   if (queryParams.adultCount) {
     constructedQuery.adultCount = {
-      $gte: parseInt(queryParams.adultCount),
+      $gte: parseInt(queryParams.adultCount as string),
     };
   }
 
   if (queryParams.childCount) {
     constructedQuery.childCount = {
-      $gte: parseInt(queryParams.childCount),
+      $gte: parseInt(queryParams.childCount as string ),
     };
   }
 
@@ -89,14 +91,14 @@ const constructSearchQuery = (queryParams: unknown) => {
   if (queryParams.stars) {
     const starRatings = Array.isArray(queryParams.stars)
       ? queryParams.stars.map((star: string) => parseInt(star))
-      : parseInt(queryParams.stars);
+      : parseInt(queryParams.stars as string);
 
     constructedQuery.starRating = { $in: starRatings };
   }
 
   if (queryParams.maxPrice) {
     constructedQuery.pricePerNight = {
-      $lte: parseInt(queryParams.maxPrice).toString(),
+      $lte: parseInt(queryParams.maxPrice as string),
     };
   }
 

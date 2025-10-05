@@ -1,22 +1,10 @@
 import {Document, model, Schema} from "mongoose";
 
-// import { IBooking } from "./booking.model.js"; 
-// import Booking from "./booking.model.js";
-
-export interface HotelSearchResponse {
-  data : IHotel[],
-  pagination : {
-    hasNextPage : boolean;
-    hasPreviousPage : boolean;
-    page : number;
-    pages : number
-    total : number;
-  }
-}
+import {bookingSchema, IBooking } from "./booking.model.js"; // Import the schema
 
 export interface IHotel extends Document {
     adultCount: number;
-    // bookings: IBooking[];
+    bookings: IBooking[];
     childCount: number;
     city: string;
     country: string;
@@ -27,12 +15,11 @@ export interface IHotel extends Document {
     lastUpdated: Date;
     name: string;
     pricePerNight: number;
-    starRating: number; // between 1–5 
+    starRating: number;
     type: string;
     updatedAt?: Date;
     userId: string; 
 }
-
 
 const hotelSchema = new Schema({
   userId: { type: String, required: true },
@@ -48,9 +35,9 @@ const hotelSchema = new Schema({
   starRating: { type: Number, required: true, min: 1, max: 5 },
   imageUrls: [{ type: String, required: true }],
   lastUpdated: { type: Date, required: true },
-  // bookings: [Booking],
-},   { timestamps: true })
+  bookings: [bookingSchema], // Use the schema
+}, { timestamps: true })
 
-const Hotel = model("Hotel", hotelSchema);
+const Hotel = model<IHotel>("Hotel", hotelSchema);
 
 export default Hotel

@@ -52,3 +52,5 @@ app.use(errorHandler)
 app.listen(config.port, () => {
   console.log(`Server is running on port ${config.port.toString()}`);
 });
+
+export default app;
