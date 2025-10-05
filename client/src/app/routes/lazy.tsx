@@ -26,6 +26,9 @@ export const LazyMyHotels = lazy(
 export const LazyMyBookings = lazy(
   () => import("@/features/mybookings/pages/MyBookings")
 );
+export const LazyBookingConfirm = lazy(
+  () => import("@/features/bookingConfirm/pages/BookingConfirm")
+);
 export const LazyAddHotels = lazy(
   () => import("@/features/addHotel/pages/AddHotel")
 );

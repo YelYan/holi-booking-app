@@ -49,6 +49,13 @@ export const fetchvalidateToken = async () => {
         }
         return response.data;
 }
+export const fetchCurrentUser = async () => {
+        const response = await apiClient.get("/auth/me");
+        if(!response.data) {
+            throw new Error("User fetch failed");
+        }
+        return response.data;
+}
 
 /*---------------- api hooks ------------------*/ 
 export const useUser = () => {
@@ -56,6 +63,13 @@ return useQuery({
     queryKey : ["user"],
     queryFn : fetchvalidateToken,
     retry : false, // don't retry if unauthorized
+})
+}
+export const useCurrentUser = () => {
+return useQuery({
+    queryKey : ["fetchCurrentUser"],
+    queryFn : fetchCurrentUser,
+    retry : false, 
 })
 }
 

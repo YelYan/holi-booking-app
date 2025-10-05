@@ -1,16 +1,15 @@
 import { QueryProviders } from "./QueryProviders";
 import { AuthProvider } from "./AuthProvider";
 import { StoreProvider } from "./StoreProvider";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistor } from "@/store/store";
+import { PersistProvider } from "./PersistProvider";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryProviders>
       <AuthProvider>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistProvider>
           <StoreProvider>{children}</StoreProvider>
-        </PersistGate>
+        </PersistProvider>
       </AuthProvider>
     </QueryProviders>
   );

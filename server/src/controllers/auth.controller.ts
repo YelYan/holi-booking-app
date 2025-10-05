@@ -50,3 +50,12 @@ export const verifyToken = asyncErrorWrapper((req : Request , res : Response) =>
     const {userId , email , role} = req.auth.payload as Record<"email" | "role"  | "userId" , string>
     res.json({ userId , email , role })  
 })
+
+export const fetchCurrentUser = asyncErrorWrapper(async (req: Request, res: Response) => {
+    const { userId } = req.auth.payload as Record<"userId", string>;
+    const result = await authService.getCurrentUser(userId);
+    res.json({
+        success : true,
+        user : result
+    });
+});

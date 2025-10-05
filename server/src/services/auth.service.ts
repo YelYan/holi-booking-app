@@ -8,7 +8,6 @@ import crypto from "crypto"
 import jwt from "jsonwebtoken";
 
 class AuthService {
-
     public async forgotPassword(email: string) {
     if (!email) {
         throw new AuthenticationError({
@@ -43,6 +42,18 @@ class AuthService {
     return { sent: true };
     }
 
+    public async getCurrentUser(userId : string) {
+        const user = await User.findById(userId).select("-password -resetPasswordToken -resetPasswordExpire -__v");
+        if (!user) {
+            throw new AuthenticationError({
+                code: "ERR_AUTH",
+                message: "User not found",
+                statusCode: 404,
+            });
+        }
+        console.log(user, "USER")
+        return user;
+    }
 
     public async login (userData : IUser) {
         //1. business logic: check user already exist or not

@@ -1,9 +1,11 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import moment from 'moment';
+import type { Moment } from 'moment';
 
 type SearchState = {
   destination: string;
-  checkIn:  Date | null;
-  checkOut:  Date | null;
+  checkIn:  string | null;
+  checkOut:  string | null;
   adultCount: number;
   childCount: number;
   hotelId?: string;
@@ -11,12 +13,15 @@ type SearchState = {
 
 const initialState: SearchState = {
   destination: '',
-  // checkIn: new Date().toISOString(),
-  // checkOut: new Date().toISOString(),
   checkIn: null,
   checkOut: null,
   adultCount: 1,
   childCount: 0,
+};
+
+const toISOString = (date: Date | string | Moment | null): string | null => {
+  if (!date) return null;
+  return moment(date, "YYYY-MM-DD").format("MMM DD, YYYY")
 };
 
 const searchSlice = createSlice({
@@ -26,15 +31,15 @@ const searchSlice = createSlice({
     // Action to set all search values at once
     saveSearchValues: (state, action: PayloadAction<{
       destination: string;
-      checkIn: Date | null;
-      checkOut: Date | null;
+      checkIn: Date | string | Moment | null;
+      checkOut: Date | string | Moment | null;
       adultCount: number;
       childCount: number;
       hotelId?: string;
     }>) => {
       state.destination = action.payload.destination;
-      state.checkIn = action.payload.checkIn;
-      state.checkOut = action.payload.checkOut;
+      state.checkIn = toISOString(action.payload.checkIn);
+      state.checkOut = toISOString(action.payload.checkOut);
       state.adultCount = action.payload.adultCount;
       state.childCount = action.payload.childCount;
       if (action.payload.hotelId) {
@@ -46,10 +51,10 @@ const searchSlice = createSlice({
       state.destination = action.payload;
     },
     setCheckIn: (state, action: PayloadAction<Date | null>) => {
-      state.checkIn = action.payload;
+      state.checkIn = toISOString(action.payload);
     },
     setCheckOut: (state, action: PayloadAction<Date | null>) => {
-      state.checkOut = action.payload;
+      state.checkOut = toISOString(action.payload);
     },
     setAdultCount: (state, action: PayloadAction<number>) => {
       state.adultCount = action.payload;

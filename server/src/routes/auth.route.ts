@@ -12,5 +12,6 @@ router.post("/forgot-password", validateRequest(forgotPassSchemaValidate), authC
 router.post("/reset-password", validateRequest(resetPasswordSchemaValidate), authController.resetPassword);
 router.post("/logout", authController.logout);
 router.get("/validate-token", authenticateUser , authController.verifyToken);
+router.get("/me", authenticateUser , authController.fetchCurrentUser);
 
 export default router;

@@ -19,7 +19,7 @@ const DetailsHotel = () => {
           <div className="flex items-center gap-2">
             <span>
               {Array.from({ length: data?.hotel.starRating }, (_, i) => (
-                <Star key={i} className="inline-block text-yellow-500" />
+                <Star key={i} className="inline-block fill-yellow-500" />
               ))}
             </span>
           </div>
