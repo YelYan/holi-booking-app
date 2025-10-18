@@ -58,6 +58,7 @@ class AuthService {
     public async login (userData : IUser) {
         //1. business logic: check user already exist or not
         const existingUser = await User.findOne({ email: userData.email }).select("+password");
+        console.log(existingUser, "exist")
 
         if (!existingUser) {
             const error = new AuthenticationError({
@@ -74,7 +75,7 @@ class AuthService {
         if(!isPasswordMatch) {
             const error = new AuthenticationError({
                 code: "ERR_AUTH",
-                message: "Invalid credentials",
+                message: "Invalid credentials or Wrong Password",
                 statusCode: 401
             });
             throw error

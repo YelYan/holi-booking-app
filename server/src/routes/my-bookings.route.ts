@@ -5,6 +5,7 @@ import express from "express";
 
 const router = express.Router();
 
+// api/get-my-bookings
 router.get("/", authenticate, getMyBooking);
 
 

@@ -12,4 +12,5 @@ router.get("/:hotelId",  validateRequest(hotelFormSchemaValidate), getMyHotelByI
 router.put("/update-my-hotel/:hotelId", upload.array("imageFiles", 6),validateRequest(hotelFormSchemaValidate), updateMyHotels);
 router.delete("/:hotelId", deleteMyHotels)
 
+
 export default router

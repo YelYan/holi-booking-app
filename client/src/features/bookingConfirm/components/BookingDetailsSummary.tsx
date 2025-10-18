@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { HotelType } from "@/types/hotel.type";
-import moment from "moment";
 
 type Props = {
   checkIn: string | null;
@@ -19,14 +18,6 @@ const BookingDetailsSummary = ({
   numberOfNights,
   hotel,
 }: Props) => {
-  // Format dates for display
-  const formattedCheckIn = checkIn
-    ? moment(checkIn, "YYYY-MM-DD").format("MMM DD, YYYY")
-    : "Not selected";
-
-  const formattedCheckOut = checkOut
-    ? moment(checkOut, "YYYY-MM-DD").format("MMM DD, YYYY")
-    : "Not selected";
   return (
     <Card>
       <CardHeader>
@@ -42,11 +33,11 @@ const BookingDetailsSummary = ({
         <div className="flex flex-col justify-between gap-2 py-4">
           <div>
             Check-in
-            <div className="font-bold"> {formattedCheckIn}</div>
+            <div className="font-bold"> {checkIn ?? "Not selected"}</div>
           </div>
           <div>
             Check-out
-            <div className="font-bold"> {formattedCheckOut}</div>
+            <div className="font-bold"> {checkOut ?? "Not selected"}</div>
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import DetailsFormSection from "./DetailsFormSection";
 import FacilitiesSection from "./FacilitiesSection";
@@ -32,6 +33,8 @@ const ManageHotelForm = ({
   const formMethods = useForm<HotelFormDataT>({
     defaultValues: hotel,
   });
+
+  const navigate = useNavigate();
 
   const { reset } = formMethods;
   useEffect(() => {
@@ -87,14 +90,23 @@ const ManageHotelForm = ({
             <FacilitiesSection />
             <GuesteSection />
             <ImagesUploadSection />
-            <Button
-              type="submit"
-              variant={"default"}
-              disabled={isLoading}
-              className="bg-blue-700 text-white cursor-pointer"
-            >
-              {isLoading ? "Saving..." : "Save"}
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                type="submit"
+                variant={"default"}
+                disabled={isLoading}
+                className="bg-blue-700 text-white cursor-pointer border border-blue-700 transition-all hover:scale-105 hover:text-blue-700 hover:bg-transparent"
+              >
+                {isLoading ? "Saving..." : "Save"}
+              </Button>
+              <Button
+                type="button"
+                className="text-black bg-transparent border border-black cursor-pointer hover:text-black hover:bg-transparent transition-all duration-100 hover:scale-105"
+                onClick={() => navigate(-1)}
+              >
+                Cancel
+              </Button>
+            </div>
           </form>
         </FormProvider>
       </CardContent>

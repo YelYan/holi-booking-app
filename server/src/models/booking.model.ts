@@ -6,16 +6,14 @@ export interface IBooking extends Document {
     checkOut: Date;
     childCount: number;
     email: string;
-    firstName: string;
-    lastName: string;
+    name: string;
     totalCost: number;
     userId: string;
 }
 
 // Export the schema so it can be used in other models
 export const bookingSchema = new Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  name: { type: String, required: true },
   email: { type: String, required: true },
   adultCount: { type: Number, required: true },
   childCount: { type: Number, required: true },

@@ -1,4 +1,4 @@
-type ErrorCode ="ERR_AUTH" | "ERR_NF" | "ERR_VALIDATION" 
+type ErrorCode ="ERR_AUTH" | "ERR_ENV_STRIPE" |"ERR_NF"|  "ERR_PAYMENT"  | "ERR_VALIDATION"  
 
 interface ValidationError  {
     error : {

@@ -56,3 +56,4 @@ export const createMyHotelWithImages = asyncErrorWrapper(async (req : Request, r
             hotel,
         });
 })
+

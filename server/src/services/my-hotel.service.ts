@@ -3,6 +3,10 @@ import EntityNotFoundError from "#errors/EntityNotFoundError.js";
 import Hotel, {IHotel} from "#models/hotel.model.js";
 import cloudinary from "cloudinary"
 
+
+
+
+
 class myHotelService {
    public async createHotelWithImages(
         imageFiles: Express.Multer.File[],
@@ -23,12 +27,14 @@ class myHotelService {
 
         return hotel;
     }
+
     public async deleteMyHotel (hotelId : string, userId : string) {
         return await Hotel.findOneAndDelete({_id : hotelId, userId});
     }
     public async getMyHotelById (hotelId : string, userId : string) {
         return await Hotel.findOne({_id : hotelId, userId});
     }
+    
     public async getMyHotels (userId : string) {
         if(!userId) {
             throw new AuthenticationError({
@@ -39,6 +45,7 @@ class myHotelService {
         }
         return await Hotel.find({userId});
     }
+
     public async updateMyHotel (        
         imageFiles: Express.Multer.File[],
         updateHotel: IHotel,
@@ -79,7 +86,7 @@ class myHotelService {
         await existingHotel.save()
         return existingHotel
     }
-    
+
     private async  uploadImages(imageFiles: Express.Multer.File[]) {
         //chaneg image files into base64 & upload to cloudinary
         const uploadPromises = imageFiles.map(async (image) => {
@@ -92,6 +99,7 @@ class myHotelService {
         const imageUrls = await Promise.all(uploadPromises);
         return imageUrls;
     }
+
 }
 
 export default new myHotelService();
