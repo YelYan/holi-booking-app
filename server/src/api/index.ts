@@ -14,7 +14,7 @@ router.get("/test" , (req, res) => {
 })
 
 router.use("/auth", authRoutes);
-router.use("/my-hotels", authenticateUser,  myHotelRoutes);
+router.use("/my-hotels",  myHotelRoutes);
 router.use("/hotels",  searchHotelRoutes);
 router.use("/", authenticateUser,  hotelsRoutes);
 router.use("/get-my-bookings", myBookingsRoutes);
