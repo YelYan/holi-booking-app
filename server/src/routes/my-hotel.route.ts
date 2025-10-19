@@ -10,7 +10,7 @@ const router = express.Router();
 router.post("/create-my-hotel",authenticateUser,upload.array("imageFiles", 6), validateRequest(hotelFormSchemaValidate), createMyHotelWithImages);
 router.get("/get-last-updated" , getLastestHotels)
 router.get("/get-my-hotels",authenticateUser, getMyHotels);
-router.get("/:hotelId",authenticateUser,  validateRequest(hotelFormSchemaValidate), getMyHotelById);
+router.get("/:hotelId",  validateRequest(hotelFormSchemaValidate), getMyHotelById);
 router.put("/update-my-hotel/:hotelId", authenticateUser,upload.array("imageFiles", 6),validateRequest(hotelFormSchemaValidate), updateMyHotels);
 router.delete("/:hotelId",authenticateUser, deleteMyHotels)
 

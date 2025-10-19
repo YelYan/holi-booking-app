@@ -14,8 +14,7 @@ export const getMyHotels = asyncErrorWrapper(async (req: Request, res: Response)
 })
 export const getMyHotelById= asyncErrorWrapper(async (req: Request, res: Response) => {
     const hotelId = req.params.hotelId;
-    const userId = req.auth.payload.userId;
-    const hotel = await myHotelService.getMyHotelById(hotelId , userId);
+    const hotel = await myHotelService.getMyHotelById(hotelId);
     res.status(200).json({
         success : true,
         message : "Get Hotel By Id",
