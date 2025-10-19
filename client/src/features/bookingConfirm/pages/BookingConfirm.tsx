@@ -65,11 +65,16 @@ const BookingConfirm = () => {
         />
       </div>
       <div className="">
-        {currentUser && paymentIntent?.paymentIntentId && (
-          <Elements stripe={stripePromise}>
+        {currentUser && paymentIntent && (
+          <Elements
+            stripe={stripePromise}
+            options={{
+              clientSecret: paymentIntent.clientSecret,
+            }}
+          >
             <BookingForm
               currentUser={currentUser}
-              paymentIntentId={paymentIntent?.paymentIntentId}
+              paymentIntent={paymentIntent}
               totalCost={paymentIntent?.totalCosts}
             />
           </Elements>

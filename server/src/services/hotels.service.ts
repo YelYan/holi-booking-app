@@ -7,7 +7,7 @@ import Hotel from "#models/hotel.model.js";
 import Stripe from "stripe";
 
 interface BookingType {
-  _id: string;
+  _id?: string;
   adultCount: number;
   checkIn: Date | null;
   checkOut: Date | null;
@@ -61,8 +61,8 @@ class hotelService {
             checkOut
         } = req.body as Partial<BookingType>;
 
+
         const newBooking: BookingType = {
-            _id: "", // This will be set by MongoDB
             adultCount: Number(adultCount),
             childCount: Number(childCount),
             email: String(email),
@@ -77,6 +77,7 @@ class hotelService {
             $push : { bookings : newBooking }
         }, {new : true});
 
+
         if(!hotel){
             throw new EntityNotFoundError({
                 code : "ERR_NF",
@@ -84,7 +85,7 @@ class hotelService {
                 statusCode : 404
             });
         }
-        await hotel.save();
+      
         return { booking : newBooking, hotel };
     }
 
