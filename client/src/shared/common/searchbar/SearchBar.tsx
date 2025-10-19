@@ -80,7 +80,7 @@ const SearchBar = () => {
           <Input
             className="text-md w-full focus:outline-none bg-white"
             type="number"
-            min={1}
+            min={0}
             max={20}
             value={childCount}
             onChange={(e) => dispatch(setChildCount(parseInt(e.target.value)))}
