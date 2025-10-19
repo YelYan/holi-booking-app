@@ -1,12 +1,15 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
+    "target": "ES2022", // Modern Node versions support this
+    "module": "NodeNext", // Crucial for "type": "module"
+    "moduleResolution": "NodeNext",
     "outDir": "./dist",
     "rootDir": "./",
     "baseUrl": ".",
-      "paths": {
-      "@/*": ["src/*"],
-    }
+    "paths": {
+      "#*": ["src/*"] 
+    },
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist"]
