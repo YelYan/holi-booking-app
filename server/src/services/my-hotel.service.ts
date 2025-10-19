@@ -3,10 +3,6 @@ import EntityNotFoundError from "#errors/EntityNotFoundError.js";
 import Hotel, {IHotel} from "#models/hotel.model.js";
 import cloudinary from "cloudinary"
 
-
-
-
-
 class myHotelService {
    public async createHotelWithImages(
         imageFiles: Express.Multer.File[],

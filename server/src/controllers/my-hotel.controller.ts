@@ -1,4 +1,4 @@
-import { IHotel } from "#models/hotel.model.js";
+import Hotel,{ IHotel } from "#models/hotel.model.js";
 import myHotelService from "#services/my-hotel.service.js";
 import { Request, Response } from "express";
 import asyncErrorWrapper from "express-async-handler"
@@ -55,5 +55,13 @@ export const createMyHotelWithImages = asyncErrorWrapper(async (req : Request, r
             message: "Hotel created successfully",
             hotel,
         });
+})
+export const getLastestHotels = asyncErrorWrapper(async (req: Request, res: Response) => {
+    const hotels = await Hotel.find().sort("-lastUpdated");
+    console.log(hotels)
+    res.status(200).json({
+        success : true,
+        data : hotels
+    })
 })
 

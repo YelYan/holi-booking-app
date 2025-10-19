@@ -22,6 +22,13 @@ export const fetchMyHotels = async () => {
         }
         return response.data;
 }
+export const fetchLastUpdatedHotels = async () => {
+        const response = await apiClient.get("/my-hotels/get-last-updated");
+        if(!response.data) {
+            throw new Error("Last Updated hotels failed");
+        }
+        return response.data;
+}
 export const fetchHotelById = async (hotelId : string) => {
         const response = await apiClient.get(`/my-hotels/${hotelId}`);
         if(!response.data) {
@@ -48,6 +55,12 @@ export const useMyHotels = () => {
 return useQuery({
     queryKey : ["my-hotels"],
     queryFn : fetchMyHotels,
+})
+}
+export const useLastUpdatedHotel = () => {
+return useQuery({
+    queryKey : ["my-hotels"],
+    queryFn : fetchLastUpdatedHotels,
 })
 }
 
