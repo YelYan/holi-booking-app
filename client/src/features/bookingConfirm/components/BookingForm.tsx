@@ -1,4 +1,3 @@
-// BookingForm.tsx
 import { useForm } from "react-hook-form";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import type { StripeCardElement } from "@stripe/stripe-js";
@@ -10,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { useConfirmPaymentBooking } from "@/services/payments/payment-api-client";
 import { toast } from "react-hot-toast"; // or your toast library
 import { useState } from "react";
-import { format } from "date-fns"; // for date formatting
 
 type UserType = {
   user: {
