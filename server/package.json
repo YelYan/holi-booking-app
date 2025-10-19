@@ -8,8 +8,8 @@
     "#*": "./src/*"
   },
   "engines": {
-  "node": "v22.18.0" 
-},
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsx --watch src/server.ts",
     "dev:staging": "cross-env NODE_ENV=staging tsx --watch src/server.ts",
